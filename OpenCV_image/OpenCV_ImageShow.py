@@ -37,64 +37,6 @@ def cvshowbasicimg(imgFile):
     cv2.waitKey(0)#代表由手动确定下一步操作，否则会出现显示图像一闪而过的情况，或是出现图像无响应的情况
     cv2.destroyAllWindows()#销毁内存
 
-#图像轮廓提取
-def CV_findContours(img):
-    image = cv2.imread(img)
-    image = cv2.resize(image, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
-    print(image)
-
-    fig = plt.gcf()                                  #分通道显示图片
-    fig.set_size_inches(10, 15)
-
-    plt.subplot(221)
-    plt.imshow(np.flip(image, axis=2))
-    plt.axis('off')
-    plt.title('Image')
-
-    #ShaHu.png
-    #BGR = np.array([60,65,65])
-    #CrayfishRice.jpg,水体
-    #BGR = np.array([122,141,140])
-    #水稻
-    BGR = np.array([48,93,65])
-    upper = BGR + 15
-    lower = BGR - 15
-    mask = cv2.inRange(image,lower,upper)
-    #cv2.imshow("Mask",mask)
-
-    plt.subplot(222)
-    plt.imshow(mask, cmap='gray')
-    plt.axis('off')
-    plt.title('Mask')
-
-    #使用cv2.findContours()函数对mask图片提取轮廓，并调用cv2.drawContour()把轮廓叠加在原始图像
-    contours,hicrarchy = cv2.findContours(mask.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-    print("number of contours:%d" %(len(contours)))
-    alllakesImage = image.copy()
-    cv2.drawContours(alllakesImage,contours,-1,(0,0,255),2)
-    #cv2.imshow("Image of All Lake",alllakesImage)
-
-    plt.subplot(223)
-    plt.imshow(alllakesImage)
-    plt.axis('off')
-    plt.title('All Contours')
-
-    #在获取的轮廓结果图中我们可以看到，存在众多的细小板块，统计结果显示number of contours，
-    # #其中contours.sort(key=len,reverse=True)可以对细小斑块的面积进行排序
-    theLargestLake = image.copy()
-    contours.sort(key=len,reverse=True)
-    #显示第一和第二大的轮廓线
-    cv2.drawContours(theLargestLake,[contours[0]],-1,(0,0,255),2)
-    #cv2.imshow("Image of the Largest Lake",theLargestLake)
-
-    plt.subplot(224)
-    plt.imshow(theLargestLake)
-    plt.axis('off')
-    plt.title('Big Contours')
-
-    plt.show()
-    #cv2.waitKey(0)#代表由手动确定下一步操作，否则会出现显示图像一闪而过的情况，或是出现图像无响应的情况
-    #cv2.destroyAllWindows()#销毁内存
 
 #灰度图直方图
 def getGrayHist(img):
@@ -231,7 +173,6 @@ def getRGBHistOnebyOne(img):
     plt.show()
 
 
-
 if __name__=='__main__':
     #获取工程根目录的路径
     rootPath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -244,7 +185,6 @@ if __name__=='__main__':
     #SHP文件路径
     imgFile ="CrayfishRice.jpg"
     #cvshowbasicimg(imgFile)
-    CV_findContours(imgFile)
     #getGrayHist(imgFile)
     #getRGBHist(imgFile)
     getRGBHistOnebyOne(imgFile)
