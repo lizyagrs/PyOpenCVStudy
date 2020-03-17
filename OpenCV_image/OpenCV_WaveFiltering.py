@@ -83,5 +83,6 @@ if __name__=='__main__':
     os.chdir(dataPath)
     #SHP文件路径
     imgFile ="YellowPeaches.jpg"
+    #imgFile ="ShaHu.png"
     Filtering(imgFile)
     #KalmanFilting()

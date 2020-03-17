@@ -71,7 +71,7 @@ def CV_findContours(img):
 def CannyEdge(imgFile):
     #-------------------------------------
     img = cv2.imread(imgFile, 0)
-    img = cv2.resize(img, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
+    #img = cv2.resize(img, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
     img = cv2.GaussianBlur(img,(3,3),0) # 用高斯平滑处理原图像降噪。若效果不好可调节高斯核大小
     cv2.imshow('GaussianBlur', img)
 
@@ -85,7 +85,7 @@ def CannyEdge(imgFile):
 def SobelEdge(imgFile):
     # Sobel边缘检测算子
     img = cv2.imread(imgFile, 0)
-    img = cv2.resize(img, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
+    #img = cv2.resize(img, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
     x = cv2.Sobel(img, cv2.CV_16S, 1, 0)
     y = cv2.Sobel(img, cv2.CV_16S, 0, 1)
     # cv2.convertScaleAbs(src[, dst[, alpha[, beta]]])
@@ -102,7 +102,7 @@ def SobelEdge(imgFile):
 
 def LaplacianEdge(imgFile):
     img = cv2.imread(imgFile, 0)
-    img = cv2.resize(img, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
+    #img = cv2.resize(img, None, fx=0.3, fy=0.3)    #为了完整显示，缩小一倍
     laplacian = cv2.Laplacian(img, cv2.CV_16S, ksize=3)
     dst = cv2.convertScaleAbs(laplacian)
     cv2.imshow('laplacian', dst)
@@ -120,9 +120,9 @@ if __name__=='__main__':
     #切换目录
     os.chdir(dataPath)
     #SHP文件路径
-    imgFile ="CrayfishRice.jpg"
+    imgFile ="ShaHu.png"
     #cvshowbasicimg(imgFile)
     #CV_findContours(imgFile)
     #CannyEdge(imgFile)
     #SobelEdge(imgFile)
-    #LaplacianEdge(imgFile)
+    LaplacianEdge(imgFile)
